@@ -1,5 +1,5 @@
 ﻿/**
- * QR Decomposition (Householder) — OpenMP parallel benchmark
+ * QR Decomposition (Householder) - OpenMP parallel benchmark
  * Amdahl's Law analysis + automatic chart generation
  *
  * Build (Linux/macOS):
@@ -184,14 +184,14 @@ pal     = plt.cm.plasma(np.linspace(0.1, 0.9, len(p_vals)))
 n_disc  = np.array([1,2,4,8,16,32,64,128])
 n_cont  = np.linspace(1, 128, 600)
 
-# Left — discrete, real data overlaid
+# Left - discrete, real data overlaid
 for pv, col, lbl in zip(p_vals, pal, p_lbls):
     sp = 1/((1-pv) + pv/n_disc)
     lw = 3 if pv==P else 1.8
     ls = '-' if pv==P else '--'
     ax1.plot(n_disc, sp, ls, color=col, lw=lw, marker='o',
              ms=6 if pv==P else 4, zorder=5 if pv==P else 3, label=lbl)
-ax1.plot(n_disc, n_disc, 'k:', lw=1.5, alpha=0.5, label='Ideal S=N')
+ax1.plot(n_disc, np.minimum(n_disc, 8.0), 'k:', lw=1.5, alpha=0.5, label='Ideal S=N')
 
 # Overlay real data (largest two matrices)
 real_cols = ['#C00000', '#FF6B35']
@@ -207,16 +207,17 @@ smax = 1/(1-P)
 ax1.axhline(y=smax, color='#C00000', ls=':', lw=2, alpha=0.6)
 ax1.text(1.2, smax+0.25, f'S_max = {smax:.2f}x (p={P})',
          color='#C00000', fontsize=9, fontweight='bold')
+ax1.set_ylim(0, 8)
 ax1.set_xscale('log', base=2)
-ax1.set_xticks([1,2,4,8,16,32,64,128])
-ax1.set_xticklabels([1,2,4,8,16,32,64,128])
+ax1.set_xticks([1,2,4,8,16])
+ax1.set_xticklabels([1,2,4,8,16])
 ax1.set_xlabel('Number of threads N', fontsize=12)
 ax1.set_ylabel('Speedup S(N)', fontsize=12)
 ax1.set_title('Amdahl curves + real benchmark data', fontsize=12, fontweight='bold')
 ax1.legend(fontsize=8, loc='upper left', framealpha=0.9)
 ax1.grid(True, alpha=0.3)
 
-# Right — continuous curves with asymptote labels
+# Right - continuous curves with asymptote labels
 for pv, col, lbl in zip(p_vals, pal, p_lbls):
     sp = 1/((1-pv) + pv/n_cont)
     lw = 3 if pv==P else 1.5
@@ -234,7 +235,7 @@ ax2.annotate(f'Our QR limit\nS_max = {smax:.2f}x',
              fontsize=9, color='#C00000', fontweight='bold')
 ax2.set_xlabel('Number of threads N', fontsize=12)
 ax2.set_ylabel('Speedup S(N)', fontsize=12)
-ax2.set_title('Continuous curves — S_max asymptotes', fontsize=12, fontweight='bold')
+ax2.set_title('Continuous curves - S_max asymptotes', fontsize=12, fontweight='bold')
 ax2.legend(fontsize=8, loc='upper left', framealpha=0.9)
 ax2.grid(True, alpha=0.3)
 
