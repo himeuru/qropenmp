@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="qropenmp.vcxproj" Id="4c7ab4ce-5e1e-42bf-9a58-ce92f206d206" />
+</Solution>
