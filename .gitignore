@@ -1,0 +1,13 @@
+# Сборка Visual Studio
+/x64/
+/qropenmp/
+.vs/
+*.exe
+*.obj
+*.pdb
+*.ipdb
+*.iobj
+*.ilk
+
+# Временные файлы
+_cheatsheet.html
